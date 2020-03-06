@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ftptest.login.mapper.LoginMapper">
+	<select id="loginCount" parameterType="loginVo" resultType="String">
+		SELECT 
+				COUNT(*)
+				
+		   FROM TB_USER_MNG
+		   
+		  WHERE  USER_ID = #{userId}
+		    AND USER_PWD = #{userPwd}
+	</select>
+	<select id="loginCheck" parameterType="loginVo" resultType="loginVo">
+		SELECT 
+				USER_NO ,
+				USER_AUTH ,
+				USER_ID ,
+				USER_PWD
+				
+		   FROM TB_USER_MNG
+		   
+		  WHERE  USER_ID = #{userId}
+
+	</select>
+	
+	<!-- 유저리스트 -->
+	<select id="getUserList" resultType="loginVo">
+		SELECT 
+				ACTOR_ID ,
+				FIRST_NAME ,
+				LAST_NAME ,
+				LAST_UPDATE
+				
+		   FROM SAKILA.ACTOR
+	</select>
+	
+	<!-- 필름 리스트  -->
+	<select id="getFilmList" resultType="filmVo">
+		SELECT  
+			   FILM_ID ,
+			   TITLE ,
+			   DESCRIPTION ,
+			   RELEASE_YEAR ,
+			   RATING ,
+			   LAST_UPDATE
+		  FROM FILM
+		 LIMIT #{nowIdx} , #{unitCnt}
+	</select>
+	
+	<!-- 필름 총 카운트  -->
+	<select id="getFilmCnt" resultType="String">
+		SELECT  
+		 COUNT(FILM_ID) 
+		  FROM FILM
+	</select>
+	
+	<!-- 필름 상세   -->
+	<select id="getFilmDetail" resultType="filmVo">
+		SELECT CONCAT( FIRST_NAME , ' ' , LAST_NAME ) AS ACTOR_NAME
+ 		  FROM ACTOR      A 
+             , FILM_ACTOR FA
+         WHERE A.ACTOR_ID = FA.ACTOR_ID
+           AND FA.FILM_ID = #{filmId}
+	</select>
+	
+	
+	<!-- 로그인체크2  -->
+	<select id="getLoginCheck2" parameterType="userVo" resultType="String">
+		SELECT PASSWORD 
+		  FROM STAFF
+		 WHERE STAFF_ID = #{staffId};
+	</select>
+		 
+	<!--렌탈LIST -->
+	<select id="getRentalList" parameterType="rentalVo" resultType="rentalVo">
+		 SELECT 
+		 		 @ROWNUM:=@ROWNUM+1    AS ROWNUM
+				, A.TITLE
+				, A.STORE_ID
+				, A.INVENTORY_ID
+				, A.CUSTOMER_NM
+				FROM (
+						SELECT f.title
+						     , s.store_id
+						     , i.inventory_id
+						     , CONCAT(c.first_name , CONCAT("-",c.last_name)) AS customer_nm
+						  FROM inventory i
+						  LEFT OUTER JOIN ( <!-- 가져온 이 전체를 ()로 묶어서 LEFT OUTER JOIN RENTAL3 쓴거임 -->
+									SELECT r2.inventory_id
+									    , MAX(r2.rental_id) AS rental_id <!-- 렌탈 테이블에서 MAX(RENTAL_ID가져오기) -->
+								     FROM rental r2 
+								    GROUP BY r2.inventory_id
+								      ORDER BY r2.inventory_id
+								  )r  ON (r.inventory_id = i.inventory_id)
+						  LEFT OUTER JOIN rental r3 ON (r3.rental_id = r.rental_id)
+						  LEFT OUTER JOIN customer c ON (c.customer_id = r3.customer_id)
+						     , film f
+						     , store s
+						 WHERE f.film_id = i.film_id
+						   AND i.store_id = s.store_id
+						 <if test="searchData != null">
+						   AND f.title LIKE CONCAT('%',#{searchData},'%')
+						 </if>
+						   AND i.inventory_id <![CDATA[<=]]> 100 
+						  	LIMIT #{nowIdx},#{unitCnt}
+  					) A 
+  				    , (SELECT @ROWNUM:=#{nowIdx}) ROWNUM
+	</select>
+	
+	<!--렌탈 총 카운트 -->
+	<select id="getRentalTot" parameterType="rentalVo" resultType="String">
+		 SELECT COUNT(*) FROM (
+				SELECT f.title
+				     , s.store_id
+				     , i.inventory_id
+				     , CONCAT(c.first_name , CONCAT("-",c.last_name)) AS customer_nm
+				  FROM inventory i
+				  LEFT OUTER JOIN ( <!-- 가져온 이 전체를 ()로 묶어서 LEFT JOIN으로 ㄱㄱㄱ -->
+							SELECT r2.inventory_id
+							    , MAX(r2.rental_id) AS rental_id <!-- 렌탈 테이블에서 MAX(RENTAL_ID가져오기) -->
+						     FROM rental r2 
+						    GROUP BY r2.inventory_id
+						      ORDER BY r2.inventory_id
+						  )r  ON (r.inventory_id = i.inventory_id)
+				  LEFT OUTER JOIN rental r3 ON (r3.rental_id = r.rental_id)
+				  LEFT OUTER JOIN customer c ON (c.customer_id = r3.customer_id)
+				     , film f
+				     , store s
+				 WHERE f.film_id = i.film_id
+				   AND i.store_id = s.store_id
+				 <if test="searchData != null">
+				   AND f.title LIKE CONCAT('%',#{searchData},'%')
+				 </if>
+				   AND i.inventory_id <![CDATA[<=]]> 100
+  		) A
+	</select>
+
+</mapper>

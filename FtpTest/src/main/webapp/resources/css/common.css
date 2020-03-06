@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+/* Default Style */
+@font-face {
+    font-family: NanumBarunGothic;
+	font-weight:normal;
+	font-style:normal;
+    src: url(../fonts/NanumBarunGothic.eot);
+    src: url(../fonts/NanumBarunGothic.eot?#iefix) format('embedded-opentype'),
+         url(../fonts/NanumBarunGothic.woff) format('woff'),
+         url(../fonts/NanumBarunGothic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: NanumBarunGothic;
+	font-weight:600; 
+	font-style:normal;
+    src: url(../fonts/NanumBarunGothicBold.eot);
+    src: url(../fonts/NanumBarunGothicBold.eot?#iefix) format('embedded-opentype'),
+         url(../fonts/NanumBarunGothicBold.woff) format('woff'),
+         url(../fonts/NanumBarunGothicBold.ttf) format('truetype');
+}
+@font-face { 
+    font-family: 'MapoPeacefull'; 
+    font-weight: normal; 
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); 
+     }
+
+html,body {height:100%;}
+* {margin:0; padding:0;}
+*, ::after, ::before {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing: border-box;}
+body		{color:#333; font-size:12px; line-height:18px;}
+ul,ol,li	{list-style:none;}
+img,hr		{border:none;}
+img			{vertical-align:middle;border:0px;}
+
+table 			{border-collapse:collapse; border-spacing:0; width:100%;}
+table td img	{vertical-align:middle;}
+
+a			{color:#454545;}
+a:link		{text-decoration:none;}
+a:visited	{text-decoration:none;}
+a:active	{text-decoration:none;}
+a:hover		{text-decoration:none;}
+
+/* tag all font-size set */
+/* html5 tag (article,aside,bdi,details,dialog,figcaption,figure,footer,header,main,mark,menuitem,meter,nav,progress,rp,rt,ruby,section,summary,time,wbr) */
+body,p,div,ul,li,dl,dt,dd,ol,fieldset,textarea,input,select,table,th,td,address,cite,h1,h2,h3,h4,h5,h6,strong,b,label {font-family:"나눔바른고딕",NanumBarunGothic,'Malgun Gothic', dotum, Arial, sans-serif;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
+
+input					{vertical-align:middle; outline:none;font-size:12px;}
+input[type='text'],
+input[type='password']  {display:inline-block;border:1px solid #cccccc;text-indent:5px;height:24px;background-color:#fff;color:#333;}
+select					{display:inline-block;vertical-align:middle;height:24px;border:1px solid #cccccc;background-color:#fff;color:#444;outline:none;font-size:12px;}
+textarea				{display:inline-block;vertical-align:middle;width:100%;padding:8px 8px; border:solid 1px #cccccc;background-color:#fff;color:#444;outline:none;font-size:12px;}
+input[type='file'],
+input[type='image'],
+input[type='reset'],
+input[type='button'],
+input[type='submit'] {cursor:pointer;}
+
+input[type='text']::-ms-clear {
+    display: none;
+}
+input[type='password']::-ms-clear {display: none;}
+input:focus {outline: none;}
+button {border:0 none;background-color:transparent;cursor:pointer}
+hr, caption {display:none;position:absolute; left:-9999px; top:-9999px;height:0;text-indent:-1000000000px;font-size:0;}
+legend {position:absolute;height:0;font-size:0px;line-height:0;overflow:hidden;text-indent:-9999px;}
+i,address,cite,em	{font-style:normal;}
+label {cursor:pointer;}
+.cusor {cursor:pointer}
+fieldset {border:0;}
+input:disabled,select:disabled {background:#f6f6f6;}
+.hidden {position:absolute;top:0;left:-1000000000000px;width:0;height:0;font-size:0;}
+
+#wrapper {position:relative;height:100%;background:linear-gradient(135deg, #66dff9, #c77fff, #f79a4e);}
+.loginWrap {display:flex;justify-content:center;width:100%;margin:0 auto;}
+.loginForm {position:relative;width:550px;height:450px;margin-top:100px;padding-top:145px;text-align:center;background-color:#fff;box-shadow: 0 3px 10px 3px rgba(0, 0, 15, 0.5);border-radius:5px;}
+.loginForm legend {position:absolute;top:0;left:0;width:100%;height:105px;padding-top:60px;font-size:50px;font-weight:bold;color:#333;text-indent:unset;font-family: "MapoPeacefull", "나눔바른고딕",NanumBarunGothic,'Malgun Gothic', dotum, Arial, sans-serif;}
+
+.loginForm input, 
+.loginForm label, 
+.join {margin-bottom:15px;font-size:14px;}
+.loginForm input[type=text], 
+.loginForm input[type=password] {width:358px;height:64px;padding:0 20px 0 60px;border:1px solid #b5b5b5;border-radius:50px;}
+.loginForm input[type=text] {background:url(../images/id_img.png) no-repeat 20px center ;background-size:30px 20px;}
+.loginForm input[type=password] {background:url(../images/pw_img.png) no-repeat 25px center ;background-size:20px 26px;}
+
+.loginForm .flexWrap {display:flex;justify-content:space-between;width:100%;}
+.loginForm .flexWrap .flexBox {display:inline-block;vertical-align:middle;}
+.loginForm .saveWrap label, 
+.loginForm .joinWrap a {-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none;-khtml-user-select:none;user-select:none;}
+.loginForm .saveWrap {position:relative;padding-left:126px;}
+.loginForm input[type=checkbox] {display:none;}
+.loginForm .saveWrap label {display:block;outline:none;}
+.loginForm .saveWrap input[type=checkbox] + label::before {content:"";position:absolute;top:-2px;left:96px;width:20px;height:20px;display:inline-block;vertical-align:middle;background:url(../images/check01.png) no-repeat 0 0;background-size:20px 20px;}
+.loginForm .saveWrap input[type=checkbox]:checked + label::before {content:"";position:absolute;top:-2px;left:96px;width:20px;height:20px;display:inline-block;vertical-align:middle;background:url(../images/check02.png) no-repeat 0 0;background-size:20px 20px;}
+.loginForm .joinWrap {position:relative;padding-right:96px;}
+.loginForm .joinWrap::before {content:"";position:absolute;top:-2px;left:-28px;width:18px;height:20px;display:inline-block;vertical-align:middle;background:url(../images/join.png) no-repeat 0 0;background-size:18px 20px;}
+
+.btn-login {width:358px;height:64px;color:#fff;background:linear-gradient(110deg, #66dff9, #c77fff, #f79a4e);border-radius:50px;font-size:18px;outline:none;}
+
+.loginForm input[type=text]:hover,
+.loginForm input[type=password]:hover, 
+.loginForm .btn-login:hover,
+.loginForm input[type=text]:focus,
+.loginForm input[type=password]:focus, 
+.loginForm .btn-login:focus {box-shadow: 0 0 5px 1px rgba(255, 56, 157, 0.8);border:none;outline:none;}
+.saveWrap label:hover, 
+.joinWrap a:hover,
+.saveWrap label:focus, 
+.joinWrap a:focus {color:#eb1783;border:none;outline:none;}
+
+
